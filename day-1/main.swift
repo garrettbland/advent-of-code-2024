@@ -32,12 +32,36 @@ func findDistances(from listA: [Int], to listB: [Int]) -> Int {
 
 }
 
+// 1. Loop through items in listA
+// 2. Find number of occurances of that item in listB
+// Multiple item from listA * number of occurences
+func calculateSimilarityScores(from listA: [Int], and listB: [Int]) -> Int {
+  var similarityScores: [Int] = []
+
+  for itemA in listA {
+    var occurences: Int = 0
+
+    for itemB in listB {
+      if itemA == itemB {
+        occurences = occurences + 1
+      }
+    }
+
+    similarityScores.append(itemA * occurences)
+  }
+
+  return similarityScores.reduce(0) { $0 + $1 }
+}
+
 func main() {
   print("Starting...")
 
   let totalDistances = findDistances(from: PuzzleInput.listA, to: PuzzleInput.listB)
 
+  let similarityScore = calculateSimilarityScores(from: PuzzleInput.listA, and: PuzzleInput.listB)
+
   print("Total Distances: \(totalDistances)")
+  print("Similarity Score: \(similarityScore)")
 
 }
 
